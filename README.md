@@ -47,7 +47,7 @@ available in the Arduino IDE Library manager, or by directly downloading the ZIP
 - [EEFS (NASA Flash File System v2.0)](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib_eefs) for SPI EEPROM, FRAM, SRAM
 - [uIP (working) and uIPv6 (untested)](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib-uIP) on Wiznet (IINChip) W5x00 MACRAW
 - uIP support for BlackWidow WiFi (TESTING ONLY)
-- [Library for 2560 XRAM](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib_ext_ram) using Rugged Circuits QuadRAM (512kB) & MegaRAM (128kB)
+- [Library for 2560 XRAM](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib_ext_ram) using Rugged Circuits QuadRAM (512kB) & MegaRAM (128kB) & Andy Browns RAM Shield (512kb)
 - [XRAMFS (16x Arduino Clients sharing 512kByte Supervisor SDRAM) Supervisor](https://github.com/feilipu/avrfreertos/tree/master/ramfs_supervisor) and [Client](https://github.com/feilipu/avrfreertos/tree/master/ramfs_load_gen) for [ArduSat](http://feilipu.me/?s=ArduSat).
 - [Abstract Serial to support multiple USART (1284p, 2560)](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib_io) with [fast ring buffers](https://github.com/feilipu/avrfreertos/blob/master/freeRTOS82x/include/ringBuffer.h)
 - [XBee API Mode](https://github.com/feilipu/avrfreertos/tree/master/freeRTOS82x/lib_xbee) support.
