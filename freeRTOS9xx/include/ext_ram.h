@@ -34,7 +34,7 @@ extern "C" {
 // --remove-section=.ext_ram_heap
 
 
-#if ( defined (portQUAD_RAM) || defined (portMEGA_RAM) ) && ( defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__) )
+#if ( defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined(portANDYBROWN_RAM)) && ( defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__) )
 
 /****************************************************************************
   Defines
@@ -79,9 +79,15 @@ extern "C" {
 
 #endif
 
+// [BR] AndyBrown RAM
+#elif defined( portANDYBROWN_RAM )
+
+	#define RAM_BANKS 8
+	#define XRAMSTART 0x2200	
+	
 #endif
 
-#if defined (portQUAD_RAM) || defined (portMEGA_RAM)
+#if defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM )
 /****************************************************************************
   Global definitions
 ****************************************************************************/

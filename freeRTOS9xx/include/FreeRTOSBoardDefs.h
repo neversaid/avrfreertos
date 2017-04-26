@@ -79,18 +79,19 @@ extern "C" {
 
 //	XRAM device options. Different methods of enabling and driving.    MegaRAM only implemented for two banks of 56kByte currently.
 //	#define portMEGA_RAM											// Use the Rugged Circuits External (128kByte) MegaRAM device. - OR -
-//	#define portQUAD_RAM											// Use the Rugged Circuits External (512kByte) QuadRAM device.
+//	#define portQUAD_RAM											// Use the Rugged Circuits External (512kByte) QuadRAM device. - OR -
+//	#define portANDYBROWN_RAM										// Use the Andy Brown External (512kByte) device (www.andybrown.me.uk).
 
 //	portQUAD_RAM device Options. NOT valid for use with portMEGA_RAM.  XRAM Memory is available as 8 banks of 56kByte, for heap. - OR -
 //	#define portEXT_RAM_16_BANK										// XRAM Memory is available as 16 banks of 32kByte, for heap. - OR -
 //	#define portEXT_RAMFS											// XRAM Memory is available as 16 banks of 32kByte for 16 Arduino clients (i.e. NOT used for heap).
 
 
-#if defined (portQUAD_RAM) || defined (portMEGA_RAM)
+#if defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM )
 	#define portEXT_RAM
 #endif
 
-#if defined (portMEGA_RAM) || (defined (portQUAD_RAM) && !defined (portEXT_RAMFS))
+#if defined (portMEGA_RAM) || ((defined (portQUAD_RAM) || defined ( portANDYBROWN_RAM)) && !defined (portEXT_RAMFS))
 	// XRAM banks enabled. We have to set the linker to move the heap to XRAM. -> DON'T FORGET TO ADD THESE LINK OPTIONS
 	#define configTOTAL_HEAP_SIZE	( (size_t ) (XRAMEND - 0x8000)) // Should be 0xffff - 0x8000 = 32767 for (non malloc) heap in XRAM.
 																	// Used for heap_1.c, heap2.c, and heap4.c only, and maximum Array size possible for Heap is 32767.
@@ -100,6 +101,8 @@ extern "C" {
 //	#define configTOTAL_HEAP_SIZE	( (size_t ) 0x1800 )			// 0x1800 = 6144 used for heap_1.c, heap2.c, and heap4.c only, where heap is NOT in XRAM.
 																	// Used for heap_1.c, heap2.c, and heap4.c only, and maximum Array size possible for Heap is 32767.
 #endif
+
+
 
 /**
  * Select WIZCHIP.

@@ -78,7 +78,7 @@
 
 #include "time.h" 		// Needed for system_tick();
 
-#if defined (portQUAD_RAM) || defined (portMEGA_RAM)
+#if defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM )
 #include "ext_ram.h"	// Needed for extRAMcheck();
 #endif
 
@@ -402,7 +402,7 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 {
 uint16_t usAddress;
 
-#if defined (portQUAD_RAM) || defined (portMEGA_RAM)
+#if defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM )
 	// This function just here to ensure the library is included.
 	// Can go anywhere, as it is just to ensure that the .init3 code is included
 	extRAMcheck(); // This function just returns XMCRA. SRE is set if extended RAM enabled.

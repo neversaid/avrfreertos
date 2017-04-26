@@ -14,7 +14,7 @@
 
 #include "FreeRTOS.h"
 
-#if ( defined (portQUAD_RAM) || defined (portMEGA_RAM) ) && ( defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__) )
+#if ( defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM ) ) && ( defined(__AVR_ATmega640__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__) )
 
 #include "ext_ram.h"
 
@@ -79,6 +79,15 @@ void extRAMinit (void)
 	// Lower 7 bits of Port C used for upper address bits, bit 7 (EXT_RAM_ADDR15) is under PIO control.
 	XMCRB = _BV(XMBK) | _BV(XMM0);
 
+// [BR] Andy Brown RAM
+#elif defined ( portANDYBROWN_RAM )	
+
+	// Setup Bank Selector Pins (38,42,43) PD7/PL7/PL6
+	DDRD|=_BV(PD7);
+	DDRL|=(_BV(PL6)|_BV(PL7));	
+
+	// Buskeeper off
+	XMCRB = 0x00;
 #endif
 
 	/* Enable XMEM interface:
@@ -98,7 +107,7 @@ uint8_t extRAMcheck (void)
 }
 
 
-#if defined (portQUAD_RAM) || defined (portMEGA_RAM)
+#if defined (portQUAD_RAM) || defined (portMEGA_RAM) || defined ( portANDYBROWN_RAM )	
 
 /* --------------------------------------------- */
 // Private Function Declarations.
@@ -216,6 +225,22 @@ void setMemoryBank(uint8_t bank_, bool switchHeap_) // use switchHeap_ false to 
 	else
 		PORTD &= ~_BV(PD7);
 
+// [BR] Andy Browns RAM Extension
+#elif defined ( portANDYBROWN_RAM )		
+	if((bank_&1)!=0)
+		PORTD|=_BV(PD7);
+	else
+		PORTD&=~_BV(PD7);
+
+	if((bank_&2)!=0)
+		PORTL|=_BV(PL7);
+	else
+		PORTL&=~_BV(PL7);
+
+	if((bank_&4)!=0)
+		PORTL|=_BV(PL6);
+	else
+		PORTL&=~_BV(PL6);	
 #endif
 
 	// save state and restore the malloc settings for this bank
